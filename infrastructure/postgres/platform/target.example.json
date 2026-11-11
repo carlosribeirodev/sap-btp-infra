@@ -1,0 +1,19 @@
+{
+  "api": "https://api.YOUR_REGION.hana.ondemand.com",
+  "org": "YOUR_ORG",
+  "space": "dev",
+  "services": {
+    "postgres": {
+      "name": "cap-lab-dev-postgres",
+      "offering": "postgresql-db",
+      "plan": "trial",
+      "parameters": {"engine_version": "16"}
+    },
+    "credentials": {
+      "name": "cap-lab-dev-credentials",
+      "offering": "credstore",
+      "plan": "trial",
+      "parameters": {"authentication": {"type": "mtls"}}
+    }
+  }
+}

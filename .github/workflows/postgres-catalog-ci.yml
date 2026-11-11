@@ -1,0 +1,83 @@
+name: PostgreSQL catalog CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postgres-catalog-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate catalog and provisioner
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: infrastructure/postgres
+        shell: bash
+    env:
+      # A validation job has no CF session and receives no BTP secrets.
+      CF_HOME: /tmp/postgres-catalog-ci-no-session
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Check out the proposed revision
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.22.2'
+
+      - name: Install validation dependencies
+        run: |
+          python3 -m pip install --disable-pip-version-check -r requirements.txt
+          npm --prefix worker ci --ignore-scripts --no-audit --no-fund
+
+      - name: Validate declarations and derive the offline plan
+        run: python3 provision.py plan > "$RUNNER_TEMP/postgres-catalog-plan.json"
+
+      - name: Publish the declarative plan in the job summary
+        shell: python
+        run: |
+          import json
+          import os
+          from pathlib import Path
+
+          plan = json.loads((Path(os.environ['RUNNER_TEMP']) / 'postgres-catalog-plan.json').read_text())
+          summary = '# Plano declarativo PostgreSQL\n\n'
+          summary += 'Este plano valida o catálogo; não consulta nem altera o BTP.\n\n'
+          summary += '```json\n' + json.dumps(plan, indent=2) + '\n```\n'
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as stream:
+              stream.write(summary)
+
+      - name: Test catalog policy and CF orchestration without cloud access
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Test the Credential Store client with simulated transport
+        run: node --test tests/credential-store.test.cjs
+
+      - name: Ensure PostgreSQL 16 test binaries are available
+        run: |
+          if [[ ! -x /usr/lib/postgresql/16/bin/initdb ]]; then
+            sudo apt-get update
+            sudo apt-get install --no-install-recommends -y postgresql-16
+          fi
+          /usr/lib/postgresql/16/bin/postgres --version
+
+      - name: Test allocation, recovery and isolation in an ephemeral PostgreSQL
+        run: python3 tests/run_integration.py --pg-bin /usr/lib/postgresql/16/bin

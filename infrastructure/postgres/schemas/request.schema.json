@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Solicitação de PostgreSQL do laboratório, versão 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["api_version", "app_id", "owner", "environment", "postgres", "lifecycle"],
+  "properties": {
+    "api_version": {"const": 1, "type": "integer"},
+    "app_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,30}$"},
+    "owner": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,30}$"},
+    "environment": {"const": "dev"},
+    "postgres": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "connection_pool_max"],
+      "properties": {
+        "profile": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,30}$"},
+        "connection_pool_max": {"type": "integer", "minimum": 1, "maximum": 100}
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deletion_policy"],
+      "properties": {"deletion_policy": {"const": "retain"}}
+    }
+  }
+}

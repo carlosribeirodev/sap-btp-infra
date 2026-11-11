@@ -1,0 +1,13 @@
+{
+  "api_version": 1,
+  "app_id": "assets",
+  "owner": "lab",
+  "environment": "dev",
+  "postgres": {
+    "profile": "shared-dev",
+    "connection_pool_max": 5
+  },
+  "lifecycle": {
+    "deletion_policy": "retain"
+  }
+}

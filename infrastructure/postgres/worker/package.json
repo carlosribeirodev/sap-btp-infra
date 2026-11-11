@@ -1,0 +1,8 @@
+{
+  "name": "cap-catalog-provisioner",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {"node": "24.x"},
+  "scripts": {"start": "node task.cjs"},
+  "dependencies": {"pg": "8.16.3"}
+}
