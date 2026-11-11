@@ -163,9 +163,10 @@ secrets BTP nem executa os comandos de nuvem.
 
 Este repositório é público. Colaboradores com permissão Write usam clone, branch,
 push e PR; o fork é opcional. A branch main exige o check do CI e uma aprovação de
-CODEOWNER. As regras também se aplicam aos administradores. O autor não pode
-aprovar a própria PR; uma PR do único CODEOWNER precisa de outro mantenedor
-habilitado antes de poder ser integrada.
+CODEOWNER para não administradores. Admins podem dispensar revisão ao mesclar
+uma PR, inclusive própria, depois do CI obrigatório. O GitHub continua recusando
+aprovação formal pelo próprio autor. A exceção não permite push direto ou bypass
+do CI; ver [governança](../../docs/governance.md).
 
 O merge executa apenas CI. A entrega após merge depende da futura identidade
 técnica e de um workflow separado. O deploy dos apps ainda precisa ser adaptado.

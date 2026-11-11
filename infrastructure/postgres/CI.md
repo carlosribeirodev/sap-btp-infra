@@ -27,16 +27,19 @@ checkout não é persistida. O CI não recebe secrets BTP, nem instala CF CLI ou
 
 A configuração deste exercício exige:
 
-- PR com uma aprovação de CODEOWNER; propriedade definida em `.github/CODEOWNERS`.
+- PR com uma aprovação de CODEOWNER para não administradores; propriedade em `.github/CODEOWNERS`.
 - Check **Validate catalog and provisioner** aprovado e branch atualizada.
 - Descarte de aprovações após novos commits e aprovação por alguém diferente do
   autor do último push.
-- Resolução de conversas, histórico linear e aplicação das regras a administradores.
+- Resolução de conversas, histórico linear e CI obrigatório também para administradores.
 - Force push e exclusão de main bloqueados.
 
-O CODEOWNER inicial é `CarlosRibeiro82`. O autor não pode aprovar a própria PR.
-Para PRs do mantenedor, outro CODEOWNER elegível precisa estar configurado. A
-publicação inicial estabelece main antes de ativar suas proteções.
+O CODEOWNER inicial é `CarlosRibeiro82`. O GitHub não permite registrar aprovação
+na própria PR. Somente admins podem dispensar revisão no merge, inclusive em PRs
+próprias; Write e Maintain continuam exigindo aprovação independente. O CI não é
+dispensado. A regra de revisão está num ruleset com exceção admin somente via PR;
+a proteção clássica mantém CI e os demais controles para todos.
+Ver [definições e verificação](../../docs/governance.md).
 
 Essas proteções estão disponíveis para repositórios públicos no GitHub Free. As
 regras são configurações da API do GitHub, não efeitos automáticos deste arquivo.

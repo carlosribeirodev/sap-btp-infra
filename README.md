@@ -42,7 +42,9 @@ flowchart LR
 
 O CI executa o plano offline e 39 testes, incluindo PostgreSQL 16 efêmero, em PRs,
 pushes para main e acionamento manual. A main exige CI aprovado e uma aprovação
-de CODEOWNER, inclusive para administradores. Force push e exclusão são bloqueados.
+de CODEOWNER para quem não é administrador. Somente admins podem dispensar a
+revisão no merge de uma PR; o CI continua obrigatório para todos. Force push e
+exclusão são bloqueados.
 O fork continua disponível para contribuições externas sem permissão de escrita.
 
 **O merge ainda não provisiona recursos no BTP.** O `apply` é operado manualmente,
@@ -51,8 +53,9 @@ secret BTP é usado pelo workflow de CI. Uma identidade técnica e um workflow d
 entrega separado fazem parte de uma etapa futura.
 
 O único CODEOWNER inicial é `CarlosRibeiro82`. Ele pode revisar PRs de outros
-desenvolvedores. PRs de autoria dele precisam de outro CODEOWNER com permissão
-adequada; o GitHub não permite aprovar a própria PR. Não existe autoaprovação.
+desenvolvedores e, como admin, mesclar suas próprias PRs sem aprovação adicional,
+depois do CI. O GitHub não permite registrar uma aprovação na própria PR; a
+exceção administrativa é uma dispensa de revisão. Ver [governança](docs/governance.md).
 
 ## Executar o plano local
 
