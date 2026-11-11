@@ -30,3 +30,12 @@ O merge dispara CI; a entrega automática e o deploy dos apps ainda serão
 implementados. A etapa futura precisa usar identidade técnica, environment
 protegido e workflow de entrega separado. Publicar o código não concede acesso
 ao ambiente BTP do mantenedor.
+
+## Fronteira com os apps CAP
+
+Este repo prepara infraestrutura e credenciais; o deployer CAP aplicará os modelos
+de negócio numa operação separada. O código público de Requests/Assets ainda usa
+nomes SQL e namespaces da reprodução anterior. Alterar só a instância de serviço
+no manifest não conclui a integração. A
+[tabela do projeto CAP](https://github.com/carlosribeirodev/sap-cap-postgres-cloud-foundry/blob/main/docs/infrastructure-catalog.md)
+registra os nomes, as operações independentes e o trabalho de entrega restante.

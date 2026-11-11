@@ -20,6 +20,17 @@ e é encerrado e removido ao terminar. O provisionador SQL é exercitado sem SUP
 O histórico público está no
 [GitHub Actions](https://github.com/carlosribeirodev/sap-btp-infra/actions/workflows/postgres-catalog-ci.yml).
 
+## Evidência pública do fluxo por branch e PR — 2026-11-11
+
+- [CI inicial da main](https://github.com/carlosribeirodev/sap-btp-infra/actions/runs/42937263146): aprovado no commit `7bb4fe1`.
+- [PR de um terceiro app sintético](https://github.com/carlosribeirodev/sap-btp-infra/pull/1): branch publicada no próprio repo, sem fork.
+- [CI dessa PR](https://github.com/carlosribeirodev/sap-btp-infra/actions/runs/42937432744): aprovado com os 39 testes e catálogo ampliado.
+
+Mesmo com CI verde, a API retornou `REVIEW_REQUIRED` e `BLOCKED`, confirmando a
+exigência de revisão na configuração inicial, que também incluía administradores.
+CODEOWNERS foi validado sem erros. A PR foi fechada sem merge e sua branch temporária foi removida.
+O pedido sintético não foi aplicado no BTP.
+
 ## Validação anterior com serviços BTP
 
 A implementação base foi exercitada pelo mantenedor num ambiente de laboratório,
@@ -34,7 +45,22 @@ O merge executa somente CI. A entrega automática, a conta técnica e a adaptaç
 deploy CAP permanecem pendentes. Rotação de senha, renovação de bindings e
 certificados, alteração de identidade e exclusão de recursos não são automatizadas.
 Remover um pedido mantém os dados.
+A [integração do runtime CAP](https://github.com/carlosribeirodev/sap-cap-postgres-cloud-foundry/blob/main/docs/infrastructure-catalog.md)
+continua pendente; os nomes e scripts da reprodução anterior não são intercambiáveis
+com as alocações deste catálogo.
 
 O plano offline não consulta serviços remotos ou drift, não aplica quotas rígidas
 de conexões e não prevê cobrança. O MVP aceita somente os perfis trial declarados;
 a disponibilidade de planos e quotas depende do ambiente real.
+
+## Atualização de governança — exceção admin
+
+O proprietário autorizou admins a concluir suas próprias PRs. A revisão passou a
+um ruleset ativo com bypass apenas do papel admin e somente via PR. A proteção
+clássica continua impondo CI, branch atualizada, conversas resolvidas, histórico
+linear e bloqueio de force push/exclusão para todos. A comparação antes/depois
+confirmou que somente a regra clássica de revisão foi substituída.
+
+A exceção não produz uma autoaprovação: o GitHub não permite que o autor registre
+uma aprovação. Não administradores continuam exigindo revisão de CODEOWNER.
+Ver [governança](../../docs/governance.md) e a definição do ruleset no Git.

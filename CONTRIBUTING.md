@@ -101,8 +101,10 @@ as suítes sem acessar o BTP. Uma PR inválida precisa ser corrigida na mesma br
 
 Main exige o check do CI, branch atualizada, uma aprovação de CODEOWNER e resolução
 das conversas. Novos commits invalidam aprovações anteriores. Os controles também
-se aplicam a administradores; o autor não aprova a própria PR. O mantenedor precisa
-de outro CODEOWNER elegível para integrar PRs de sua própria autoria.
+mantêm o CI e as demais proteções para administradores. Somente o papel admin
+pode dispensar a revisão ao mesclar uma PR, inclusive de sua própria autoria.
+Os demais colaboradores continuam precisando da aprovação de CODEOWNER. O GitHub
+não permite que o autor registre aprovação na própria PR.
 
 Após o merge, nesta etapa o operador aplica manualmente a revisão aprovada usando
 os comandos do [guia de operação](infrastructure/postgres/README.md). O CI verde
@@ -110,3 +112,8 @@ não significa que o banco foi criado. O deploy da aplicação é uma etapa sepa
 
 Mudanças em scripts, workflows, schemas e políticas seguem a mesma revisão. O
 projeto não contém credenciais de plataforma, dados reais ou configuração de conta.
+
+Alterações somente de documentação também seguem branch e CI. A exceção de
+revisão se aplica somente a admins, pelo papel efetivo no repositório; Write e
+Maintain não dão essa exceção. O [guia de governança](docs/governance.md) descreve
+as regras e suas limitações.
