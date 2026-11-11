@@ -110,3 +110,7 @@ não significa que o banco foi criado. O deploy da aplicação é uma etapa sepa
 
 Mudanças em scripts, workflows, schemas e políticas seguem a mesma revisão. O
 projeto não contém credenciais de plataforma, dados reais ou configuração de conta.
+
+Alterações somente de documentação também seguem branch, CI e revisão. Com o
+CODEOWNER inicial como autor da PR, o merge fica bloqueado até existir uma revisão
+de CODEOWNER elegível; Write sozinho não substitui a aprovação exigida.

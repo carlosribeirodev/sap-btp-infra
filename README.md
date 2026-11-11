@@ -77,6 +77,7 @@ A disponibilidade dos serviços depende da conta e região.
 - [CI, proteção e preparação da entrega](infrastructure/postgres/CI.md).
 - [Testes e limites de validação](infrastructure/postgres/VALIDATION.md).
 - [Arquitetura e responsabilidades](docs/architecture.md).
+- [Integração CAP pendente e compatibilidade dos nomes](https://github.com/carlosribeirodev/sap-cap-postgres-cloud-foundry/blob/main/docs/infrastructure-catalog.md).
 - [Segurança](SECURITY.md).
 
 Licença [MIT](LICENSE).

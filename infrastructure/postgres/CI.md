@@ -20,7 +20,7 @@ PostgreSQL 16 efêmero para executar:
 4. 17 testes de alocação, isolamento e retomada num PostgreSQL local temporário.
 
 As actions são fixadas por SHA; o token tem `contents: read` e a credencial do
-checkout não é persistida. O CI não recebe secrets BTP, instala CF CLI ou executa
+checkout não é persistida. O CI não recebe secrets BTP, nem instala CF CLI ou executa
 `bootstrap`, `apply` e `check` na nuvem. O cluster de teste é removido ao terminar.
 
 ## Proteção de main
@@ -72,6 +72,8 @@ SQL continuam no cofre; não precisam ser cadastrados manualmente no GitHub.
 
 O deploy CAP ainda precisa adaptar manifests/startup e consumir a credencial do
 app. Um CI verde não publica API, AppRouter, XSUAA ou modelos de negócio.
+A [tabela de compatibilidade do projeto CAP](https://github.com/carlosribeirodev/sap-cap-postgres-cloud-foundry/blob/main/docs/infrastructure-catalog.md)
+registra as diferenças entre o catálogo e os scripts da reprodução anterior.
 
 ## Referências
 
