@@ -5,18 +5,32 @@
       "owner": "lab",
       "repository": "carlosribeirodev/sap-cap-postgres-cloud-foundry",
       "source_path": "apps/requests",
-      "environments": ["dev"]
+      "environments": [
+        "dev"
+      ]
     },
     "assets": {
       "owner": "lab",
       "repository": "carlosribeirodev/sap-cap-postgres-cloud-foundry",
       "source_path": "apps/assets",
-      "environments": ["dev"]
+      "environments": [
+        "dev"
+      ]
+    },
+    "pedidos-demo": {
+      "owner": "lab",
+      "repository": "example/pedidos-demo",
+      "source_path": ".",
+      "environments": [
+        "dev"
+      ]
     }
   },
   "profiles": {
     "shared-dev": {
-      "environments": ["dev"],
+      "environments": [
+        "dev"
+      ],
       "isolation": "database-per-app",
       "max_pool_connections": 5
     }
